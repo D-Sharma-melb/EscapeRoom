@@ -1,0 +1,132 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- ENUMS ----------
+enum ThemeType {
+  ANCIENT
+  SPACE
+  MYSTERY
+  LAB
+  HAUNTED
+}
+
+enum ObjectType {
+  KEY
+  LOCK
+  DOOR
+  CHEST
+  PUZZLE
+  CODE
+}
+
+// ---------- MODELS ----------
+
+// Users (both builders and players)
+model User {
+  id       String @id @default(cuid())
+  username String @unique
+  password String // no encryption per your requirement
+  role     Role   @default(PLAYER)
+
+  builtRooms EscapeRoom[]  @relation("UserBuiltRooms")
+  sessions   GameSession[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  BUILDER
+  PLAYER
+}
+
+// Escape room built by a builder
+model EscapeRoom {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String?
+  theme       ThemeType
+  timer       Int // total time in seconds
+  createdById String
+  createdBy   User      @relation("UserBuiltRooms", fields: [createdById], references: [id])
+
+  objects  RoomObject[]
+  sessions GameSession[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Object placed by builder inside the room
+model RoomObject {
+  id     String     @id @default(cuid())
+  roomId String
+  room   EscapeRoom @relation(fields: [roomId], references: [id])
+
+  type     ObjectType // one of the six object types
+  x        Float
+  y        Float
+  width    Float?
+  height   Float?
+  rotation Float?     @default(0)
+
+  question      String
+  correctAnswer String
+  hint          String?
+  points        Int     @default(10)
+
+  attempts Attempt[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// A player starting/playing an escape room
+model GameSession {
+  id     String     @id @default(cuid())
+  roomId String
+  room   EscapeRoom @relation(fields: [roomId], references: [id])
+
+  playerId String
+  player   User   @relation(fields: [playerId], references: [id])
+
+  startedAt DateTime      @default(now())
+  endedAt   DateTime?
+  score     Int           @default(0)
+  status    SessionStatus @default(RUNNING)
+
+  attempts Attempt[]
+
+  @@index([roomId, playerId])
+}
+
+enum SessionStatus {
+  RUNNING
+  COMPLETED
+  EXPIRED
+}
+
+// Player’s answer attempt for each object in a session
+model Attempt {
+  id        String      @id @default(cuid())
+  sessionId String
+  session   GameSession @relation(fields: [sessionId], references: [id])
+
+  objectId String
+  object   RoomObject @relation(fields: [objectId], references: [id])
+
+  answer        String
+  isCorrect     Boolean
+  pointsAwarded Int
+  attemptedAt   DateTime @default(now())
+
+  @@unique([sessionId, objectId])
+}
