@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "bootstrap/dist/css/bootstrap.min.css";
 
 :root {
   --background: #ffffff;
@@ -18,3 +19,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Theme 1: warm gradient background used on the landing page */
+:root {
+  --theme-1-bg-1: #0f172a; /* navy */
+  --theme-1-bg-2: #0ea5a4; /* teal */
+  --theme-1-fore: #f8fafc; /* near-white */
+}
+
+.bg-theme-1 {
+  background-image: linear-gradient(135deg, var(--theme-1-bg-1) 0%, var(--theme-1-bg-2) 100%);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.text-theme-1-fore { color: var(--theme-1-fore); }

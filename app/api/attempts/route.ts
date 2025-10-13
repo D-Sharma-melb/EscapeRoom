@@ -1,18 +1,26 @@
 import { prisma } from "@/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+// 🟢 POST - Record a player's attempt and update score if correct
+export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
 
+    // 🔍 Find the object by ID
     const object = await prisma.roomObject.findUnique({
       where: { id: data.objectId },
     });
 
-    if (!object) return new Response("Object not found", { status: 404 });
+    if (!object) {
+      return NextResponse.json({ error: "Object not found" }, { status: 404 });
+    }
 
+    // ✅ Check if answer is correct
     const isCorrect =
-      data.answer.trim().toLowerCase() === object.correctAnswer.toLowerCase();
+      data.answer.trim().toLowerCase() ===
+      object.correctAnswer.trim().toLowerCase();
 
+    // 📝 Record attempt
     const attempt = await prisma.attempt.create({
       data: {
         sessionId: data.sessionId,
@@ -23,6 +31,7 @@ export async function POST(req: Request) {
       },
     });
 
+    // 🏆 Update score if answer is correct
     if (isCorrect) {
       await prisma.gameSession.update({
         where: { id: data.sessionId },
@@ -30,8 +39,12 @@ export async function POST(req: Request) {
       });
     }
 
-    return Response.json(attempt);
-  } catch {
-    return new Response("Error recording attempt", { status: 500 });
+    return NextResponse.json(attempt);
+  } catch (error) {
+    console.error("Error recording attempt:", error);
+    return NextResponse.json(
+      { error: "Error recording attempt" },
+      { status: 500 }
+    );
   }
 }

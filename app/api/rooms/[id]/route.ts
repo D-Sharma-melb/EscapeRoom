@@ -1,36 +1,70 @@
 import { prisma } from "@/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+// 🟢 GET a single room by ID (including objects)
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const room = await prisma.escapeRoom.findUnique({
       where: { id: params.id },
       include: { objects: true },
     });
-    if (!room) return new Response("Room not found", { status: 404 });
-    return Response.json(room);
-  } catch {
-    return new Response("Error fetching room", { status: 500 });
+
+    if (!room) {
+      return NextResponse.json({ error: "Room not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(room);
+  } catch (error) {
+    console.error("Error fetching room:", error);
+    return NextResponse.json(
+      { error: "Error fetching room" },
+      { status: 500 }
+    );
   }
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+// 🟡 PUT update a room by ID
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const data = await req.json();
+
     const room = await prisma.escapeRoom.update({
       where: { id: params.id },
       data,
     });
-    return Response.json(room);
-  } catch {
-    return new Response("Error updating room", { status: 500 });
+
+    return NextResponse.json(room);
+  } catch (error) {
+    console.error("Error updating room:", error);
+    return NextResponse.json(
+      { error: "Error updating room" },
+      { status: 500 }
+    );
   }
 }
 
-export async function DELETE(_: Request, { params }: { params: { id: string } }) {
+// 🔴 DELETE a room by ID
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
-    await prisma.escapeRoom.delete({ where: { id: params.id } });
-    return new Response("Room deleted", { status: 200 });
-  } catch {
-    return new Response("Error deleting room", { status: 500 });
+    await prisma.escapeRoom.delete({
+      where: { id: params.id },
+    });
+
+    return NextResponse.json({ message: "Room deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting room:", error);
+    return NextResponse.json(
+      { error: "Error deleting room" },
+      { status: 500 }
+    );
   }
 }
