@@ -247,6 +247,14 @@ export default function BuilderPage() {
     }
   };
 
+  const handleLogout = () => {
+    if (confirm("Are you sure you want to logout?")) {
+      localStorage.removeItem("user");
+      setUser(null);
+      console.log("👋 User logged out successfully");
+    }
+  };
+
   if (loading) {
     return (
       <div
@@ -283,6 +291,31 @@ export default function BuilderPage() {
 
   return (
     <div className="container-fluid py-4">
+      {/* User Info & Logout */}
+      <div className="row mb-3">
+        <div className="col-12">
+          <div className="d-flex justify-content-between align-items-center">
+            <div>
+              <h4 className="mb-0">
+                <i className="bi bi-hammer me-2"></i>
+                Escape Room Builder
+              </h4>
+              <small className="text-muted">
+                Welcome, <strong>{user.username}</strong>
+              </small>
+            </div>
+            <button
+              className="btn btn-outline-danger"
+              onClick={handleLogout}
+            >
+              <i className="bi bi-box-arrow-right me-2"></i>
+              Logout
+            </button>
+          </div>
+          <hr />
+        </div>
+      </div>
+
       {/* Top Controls */}
       <div className="row mb-3 align-items-center">
         <div className="col-md-3">

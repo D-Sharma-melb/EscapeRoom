@@ -12,9 +12,16 @@ interface Room {
 interface RoomListProps {
   rooms: Room[];
   onSelectRoom: (room: any) => void;
+  user?: any;
+  onLogout?: () => void;
 }
 
-export default function RoomList({ rooms, onSelectRoom }: RoomListProps) {
+export default function RoomList({ 
+  rooms, 
+  onSelectRoom,
+  user,
+  onLogout 
+}: RoomListProps) {
   const getThemeIcon = (theme: string) => {
     return theme === "ANCIENT" ? "🏛️" : "🚀";
   };
@@ -26,6 +33,33 @@ export default function RoomList({ rooms, onSelectRoom }: RoomListProps) {
 
   return (
     <div className="container py-5">
+      {/* User Info & Logout */}
+      {user && onLogout && (
+        <div className="row mb-4">
+          <div className="col-12">
+            <div className="d-flex justify-content-between align-items-center">
+              <div>
+                <h4 className="mb-0">
+                  <i className="bi bi-controller me-2"></i>
+                  Escape Room Player
+                </h4>
+                <small className="text-muted">
+                  Welcome, <strong>{user.username}</strong>
+                </small>
+              </div>
+              <button
+                className="btn btn-outline-danger"
+                onClick={onLogout}
+              >
+                <i className="bi bi-box-arrow-right me-2"></i>
+                Logout
+              </button>
+            </div>
+            <hr />
+          </div>
+        </div>
+      )}
+
       <h2 className="text-center mb-5 display-5 fw-bold">
         <i className="bi bi-controller me-3"></i>
         Choose Your Escape Room

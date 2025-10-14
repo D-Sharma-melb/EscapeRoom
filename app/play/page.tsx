@@ -6,6 +6,7 @@ import GameCanvas from "@/components/play/GameCanvas";
 import GameTimer from "@/components/play/GameTimer";
 import GameResultModal from "@/components/play/GameResultModal";
 import ObjectAnswerModal from "@/components/play/ObjectAnswerModal";
+import SigninPlayer from "@/components/SigninPlayer";
 
 interface Room {
   id: string;
@@ -224,6 +225,17 @@ export default function PlayPage() {
     loadRooms();
   };
 
+  const handleLogout = () => {
+    if (confirm("Are you sure you want to logout?")) {
+      localStorage.removeItem("user");
+      setUser(null);
+      setSelectedRoom(null);
+      setGameStarted(false);
+      setGameEnded(false);
+      console.log("👋 Player logged out successfully");
+    }
+  };
+
   if (loading) {
     return (
       <div
@@ -239,26 +251,35 @@ export default function PlayPage() {
 
   if (!user) {
     return (
-      <div className="container py-5 text-center">
-        <div className="alert alert-warning" role="alert">
-          <h4 className="alert-heading">
-            <i className="bi bi-exclamation-triangle me-2"></i>
-            Please Log In
-          </h4>
-          <p>You need to be logged in to play escape rooms.</p>
-          <hr />
-          <p className="mb-0">
-            <a href="/builder" className="btn btn-primary">
-              Go to Login
-            </a>
-          </p>
-        </div>
+      <div
+        className="position-relative"
+        style={{
+          height: "calc(100vh - 80px)",
+          backgroundImage: "url(/theme_2.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <SigninPlayer
+          onAuthSuccess={(authenticatedUser) => {
+            setUser(authenticatedUser);
+            loadRooms();
+          }}
+        />
       </div>
     );
   }
 
   if (!selectedRoom) {
-    return <RoomList rooms={rooms} onSelectRoom={handleSelectRoom} />;
+    return (
+      <RoomList 
+        rooms={rooms} 
+        onSelectRoom={handleSelectRoom}
+        user={user}
+        onLogout={handleLogout}
+      />
+    );
   }
 
   const totalPoints =
@@ -266,6 +287,29 @@ export default function PlayPage() {
 
   return (
     <div className="container-fluid py-4">
+      {/* User Info & Logout */}
+      <div className="row mb-3">
+        <div className="col-12">
+          <div className="d-flex justify-content-between align-items-center">
+            <div>
+              <h5 className="mb-0">
+                <i className="bi bi-controller me-2"></i>
+                Playing as: <strong>{user.username}</strong>
+              </h5>
+            </div>
+            <button
+              className="btn btn-sm btn-outline-danger"
+              onClick={handleLogout}
+              disabled={gameStarted && !gameEnded}
+            >
+              <i className="bi bi-box-arrow-right me-2"></i>
+              Logout
+            </button>
+          </div>
+          <hr />
+        </div>
+      </div>
+
       {/* Header */}
       <div className="row mb-3 align-items-center">
         <div className="col-md-3">
