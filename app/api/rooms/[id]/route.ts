@@ -4,11 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 // 🟢 GET a single room by ID (including objects)
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const room = await prisma.escapeRoom.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { objects: true },
     });
 
@@ -29,13 +30,14 @@ export async function GET(
 // 🟡 PUT update a room by ID
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const data = await req.json();
 
     const room = await prisma.escapeRoom.update({
-      where: { id: params.id },
+      where: { id },
       data,
     });
 
@@ -52,11 +54,12 @@ export async function PUT(
 // 🔴 DELETE a room by ID
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await prisma.escapeRoom.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: "Room deleted successfully" });

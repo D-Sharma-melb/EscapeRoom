@@ -4,11 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 // 🟢 GET all objects for a specific room
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const objects = await prisma.roomObject.findMany({
-      where: { roomId: params.id },
+      where: { roomId: id },
     });
 
     return NextResponse.json(objects);
@@ -24,14 +25,22 @@ export async function GET(
 // 🟢 POST create a new object in the room
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const data = await req.json();
+    
+    console.log(`📝 Creating object in room ${id}:`, {
+      type: data.type,
+      question: data.question,
+      answer: data.correctAnswer,
+      points: data.points
+    });
 
     const obj = await prisma.roomObject.create({
       data: {
-        roomId: params.id,
+        roomId: id,
         type: data.type,
         x: data.x,
         y: data.y,
@@ -45,11 +54,12 @@ export async function POST(
       },
     });
 
+    console.log(`✅ Object created successfully with ID: ${obj.id}`);
     return NextResponse.json(obj);
   } catch (error) {
-    console.error("Error creating object:", error);
+    console.error("❌ Error creating object:", error);
     return NextResponse.json(
-      { error: "Error creating object" },
+      { error: "Error creating object", details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     );
   }

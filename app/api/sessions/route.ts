@@ -42,3 +42,26 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+// 🟡 PUT - Update a game session
+export async function PUT(req: NextRequest) {
+  try {
+    const data = await req.json();
+
+    const session = await prisma.gameSession.update({
+      where: { id: data.id },
+      data: {
+        status: data.status,
+        endedAt: data.endedAt ? new Date(data.endedAt) : undefined,
+      },
+    });
+
+    return NextResponse.json(session);
+  } catch (error) {
+    console.error("Error updating session:", error);
+    return NextResponse.json(
+      { error: "Error updating session" },
+      { status: 500 }
+    );
+  }
+}

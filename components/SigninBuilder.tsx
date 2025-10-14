@@ -63,21 +63,16 @@ export default function SigninBuilder({
   }
 
   return (
-    <div
-      className="modal fade show d-block"
-      tabIndex={-1}
-      style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
-    >
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content shadow-lg border-0">
-          <div className="modal-header border-0 pb-0">
-            <h5 className="modal-title fw-bold">
-              {mode === "login" ? "Sign In to Build" : "Create an Account"}
-            </h5>
-          </div>
+    <div className="d-flex justify-content-center align-items-center h-100">
+      <div className="card shadow-lg border-0" style={{ maxWidth: "400px", width: "100%" }}>
+        <div className="card-header border-0 pb-0">
+          <h5 className="card-title fw-bold text-center">
+            {mode === "login" ? "Sign In to Build" : "Create an Account"}
+          </h5>
+        </div>
 
-          <div className="modal-body">
-            <form onSubmit={handleSubmit}>
+        <div className="card-body">
+          <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="form-label fw-semibold">Username</label>
                 <input
@@ -118,7 +113,7 @@ export default function SigninBuilder({
             </form>
           </div>
 
-          <div className="modal-footer border-0 d-flex justify-content-center">
+          <div className="card-footer border-0 d-flex justify-content-center">
             {mode === "login" ? (
               <p className="text-muted mb-0">
                 Don't have an account?{" "}
@@ -145,6 +140,5 @@ export default function SigninBuilder({
           </div>
         </div>
       </div>
-    </div>
   );
 }
