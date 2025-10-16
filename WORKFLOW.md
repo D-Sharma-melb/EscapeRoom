@@ -194,3 +194,5 @@ const handleSaveRoom = async () => {
 - `components/builder/BuilderCanvas.tsx` - Object rendering & click handling
 - `components/builder/ObjectConfigModal.tsx` - Configuration form
 - `app/api/rooms/[id]/objects/route.ts` - API endpoints
+
+

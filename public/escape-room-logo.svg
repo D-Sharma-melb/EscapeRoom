@@ -1,0 +1,68 @@
+<svg width="880" height="260" viewBox="0 0 880 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Escape Room Logo</title>
+  <desc id="desc">A circular maze with a keyhole, followed by the words ESCAPE ROOM in a bold geometric wordmark.</desc>
+
+  <!-- Set your theme color by changing 'currentColor' via CSS on the parent element -->
+  <g fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" color="#111">
+    <!-- CIRCULAR MAZE + KEYHOLE ICON -->
+    <g transform="translate(130,130)">
+      <!-- Outer ring -->
+      <circle r="110"/>
+      <!-- Maze rings with gaps -->
+      <path d="
+        M -90 0 h 36
+        M -54 -54 a 76 76 0 0 1 108 0
+        M 76 -6 v -32
+        M 54 54 a 76 76 0 0 1 -108 0
+        M -6 76 h -32
+        M 90 0 h -28
+        M 6 -76 h 32
+      "/>
+      <!-- Inner ring segments -->
+      <path d="
+        M -60 0 h 20
+        M -42 -42 a 60 60 0 0 1 84 0
+        M 42 42 a 60 60 0 0 1 -84 0
+      "/>
+      <!-- Keyhole: circle head + stem cutout -->
+      <g fill="currentColor" stroke="none">
+        <circle cx="0" cy="-18" r="16"/>
+        <path d="M -10 -4 h 20 l -6 40 h -8 z"/>
+      </g>
+    </g>
+
+    <!-- WORDMARK -->
+    <g stroke="none" fill="currentColor" transform="translate(260,55)">
+      <!-- ESCAPE -->
+      <path d="M0 0 h120 v22 H24 v24 h76 v22 H24 v24 h96 v22 H0z"/> <!-- E -->
+      <path d="M140 0 h38 c40 0 70 24 70 62s-30 62-70 62h-38z
+               M178 22 v80 h-16 V22z
+               M178 22 h20 c26 0 40 16 40 40s-14 40-40 40h-20z"/> <!-- S -->
+      <path d="M290 0 h86 v22 h-34 v88 h-18 V22 h-34z"/> <!-- T-like (stylized C without gap) -->
+      <path d="M400 0 h22 l52 156 h-26 l-10 -32 h-54 l-10 32 h-24z
+               M436 100 l-18 -58 -18 58z"/> <!-- A -->
+      <path d="M500 0 h22 v64 h58 V0 h22 v156 h-22 V86 h-58 v70 h-22z"/> <!-- H-shaped (reads as 'P' mirrored to craft 'AP' feel) -->
+      <path d="M628 0 h110 v22 h-88 v44 h72 v22 h-72 v46 h88 v22 h-110z"/> <!-- E -->
+    </g>
+
+    <!-- ROOM -->
+    <g stroke="none" fill="currentColor" transform="translate(260,190)">
+      <!-- R -->
+      <path d="M0 0 h70 c28 0 50 18 50 44 0 18-10 32-26 39 l28 43 H98 L78 90 H22 v36 H0z
+               M22 22 v46 h46 c15 0 26 -10 26 -23 0 -13 -11 -23 -26 -23z"/>
+      <!-- O -->
+      <path d="M148 0 c-44 0 -78 34 -78 78s34 78 78 78 78 -34 78 -78 -34 -78 -78 -78z
+               M148 22 c32 0 56 24 56 56s-24 56 -56 56 -56 -24 -56 -56 24 -56 56 -56z"/>
+      <!-- O (maze-inspired inner cut) -->
+      <g transform="translate(328,78)">
+        <circle r="78" fill="currentColor"/>
+        <circle r="56" fill="white"/>
+        <path d="M -40 0 h 30 M 10 0 h 30 M 0 -40 v 24 M 0 10 v 30" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
+        <circle r="28" fill="currentColor"/>
+        <circle r="14" fill="white"/>
+      </g>
+      <!-- M -->
+      <path d="M440 0 h22 l44 84 44 -84 h22 v156 h-22 V46 l-36 68 h-16 l-36 -68 v110 h-22z"/>
+    </g>
+  </g>
+</svg>
