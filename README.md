@@ -90,3 +90,14 @@ Next steps (optional)
 1. docker compose up -d
 2. docker-compose exec web npx prisma studio --hostname 0.0.0.0
 and then studio is available at localhost:5555
+
+// Lighthouse report ! - from the browser
+
+// Playright test:
+1. App is running at localhost:3000
+2. Run:
+   # Normal
+   npx playwright test tests/login.spec.ts
+
+   # Interactive with UI
+    npx playwright test tests/login.spec.ts --ui
