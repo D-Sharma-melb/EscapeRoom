@@ -10,10 +10,10 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-appdb}
     volumes:
       - db_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
     networks:
       - app-network
+    ports:
+      - "5432:5432"
 
   web:
     build:
@@ -22,6 +22,7 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+      - "5555:5555"
     environment:
       - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@db:5432/appdb}
       - NODE_ENV=development

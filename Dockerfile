@@ -18,6 +18,9 @@ COPY . .
 # Generate Prisma Client
 RUN npx prisma generate
 
+# Create logs directory
+RUN mkdir -p logs
+
 # Expose the development port
 EXPOSE 3000
 

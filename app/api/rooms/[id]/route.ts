@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-// 🟢 GET a single room by ID (including objects)
+// GET a single room by ID (including objects)
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -27,7 +27,7 @@ export async function GET(
   }
 }
 
-// 🟡 PUT update a room by ID
+//  PUT update a room by ID
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -51,7 +51,7 @@ export async function PUT(
   }
 }
 
-// 🔴 DELETE a room by ID
+// DELETE a room by ID
 export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }

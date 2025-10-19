@@ -208,7 +208,7 @@ export default function BuilderPage() {
       }
 
       // Save all objects
-      console.log(`💾 Saving ${objects.length} objects to database...`);
+      console.log(`Saving ${objects.length} objects to database...`);
       for (const obj of objects) {
         console.log(`  → Saving object: ${obj.type} with question: "${obj.question}"`);
         const response = await fetch(`/api/rooms/${room.id}/objects`, {
@@ -218,7 +218,7 @@ export default function BuilderPage() {
         });
         
         if (!response.ok) {
-          console.error(`❌ Failed to save object ${obj.type}`);
+          console.error(` Failed to save object ${obj.type}`);
           throw new Error(`Failed to save object ${obj.type}`);
         }
         

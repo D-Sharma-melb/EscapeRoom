@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-// 🟢 GET all objects for a specific room
+//  GET all objects for a specific room
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -22,7 +22,7 @@ export async function GET(
   }
 }
 
-// 🟢 POST create a new object in the room
+//  POST create a new object in the room
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -54,10 +54,10 @@ export async function POST(
       },
     });
 
-    console.log(`✅ Object created successfully with ID: ${obj.id}`);
+    console.log(` Object created successfully with ID: ${obj.id}`);
     return NextResponse.json(obj);
   } catch (error) {
-    console.error("❌ Error creating object:", error);
+    console.error(" Error creating object:", error);
     return NextResponse.json(
       { error: "Error creating object", details: error instanceof Error ? error.message : String(error) },
       { status: 500 }

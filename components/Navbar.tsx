@@ -11,6 +11,7 @@ function Navbar() {
               style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)', backdropFilter: 'blur(8px)' }}>
         <div className="d-flex align-items-center gap-3">
           <Image src="/escape-room-logo.svg" alt="Escape Room Logo" width={180} height={54} className="object-fit-contain" />
+          <h3>Escape Room</h3>
         </div>
         <nav className="d-flex align-items-center gap-3">
           <Link href="/" className="px-3 py-2 rounded text-decoration-none" 

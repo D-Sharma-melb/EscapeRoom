@@ -84,3 +84,9 @@ docker-compose down -v
 Next steps (optional)
 - I can add a starter `prisma/schema.prisma` and run an initial migration for you.
 - If you want the `prisma` service to only run for CLI invocations (rather than stay running), I can change the compose file to remove the `tail -f` command and make it purely run-on-demand.
+
+
+// Running prisma commands:
+1. docker compose up -d
+2. docker-compose exec web npx prisma studio --hostname 0.0.0.0
+and then studio is available at localhost:5555

@@ -20,7 +20,7 @@ export default function SigninBuilder({
 
     try {
       if (mode === "login") {
-        // ✅ Use new login API
+        
         const res = await fetch("/api/users/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -37,7 +37,6 @@ export default function SigninBuilder({
         localStorage.setItem("user", JSON.stringify(data));
         onAuthSuccess?.(data);
       } else {
-        // ✅ Use existing POST /api/users for signup
         const res = await fetch("/api/users", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -113,32 +112,32 @@ export default function SigninBuilder({
             </form>
           </div>
 
-          <div className="card-footer border-0 d-flex justify-content-center">
-            {mode === "login" ? (
-              <p className="text-muted mb-0">
-                Don't have an account?{" "}
-                <button
-                  type="button"
-                  className="btn btn-link p-0 fw-semibold"
-                  onClick={() => setMode("signup")}
-                >
-                  Sign up
-                </button>
-              </p>
-            ) : (
-              <p className="text-muted mb-0">
-                Already have an account?{" "}
-                <button
-                  type="button"
-                  className="btn btn-link p-0 fw-semibold"
-                  onClick={() => setMode("login")}
-                >
-                  Login
-                </button>
-              </p>
-            )}
-          </div>
+        <div className="card-footer border-0 d-flex justify-content-center">
+          {mode === "login" ? (
+            <p className="text-muted mb-0">
+              Don't have an account?{" "}
+              <button
+                type="button"
+                className="btn btn-link p-0 fw-semibold"
+                onClick={() => setMode("signup")}
+              >
+                Sign up
+              </button>
+            </p>
+          ) : (
+            <p className="text-muted mb-0">
+              Already have an account?{" "}
+              <button
+                type="button"
+                className="btn btn-link p-0 fw-semibold"
+                onClick={() => setMode("login")}
+              >
+                Login
+              </button>
+            </p>
+          )}
         </div>
       </div>
+    </div>
   );
 }

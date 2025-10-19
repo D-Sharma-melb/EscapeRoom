@@ -37,7 +37,7 @@ export default function SigninPlayer({ onAuthSuccess }: SigninPlayerProps) {
         onAuthSuccess(user);
       } else {
         // Sign up as PLAYER
-        const response = await fetch("/api/users/login", {
+        const response = await fetch("/api/users", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ 
