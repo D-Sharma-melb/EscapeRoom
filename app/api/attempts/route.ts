@@ -1,12 +1,12 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-// 🟢 POST - Record a player's attempt and update score if correct
+// POST - Record a player's attempt and update score if correct
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
 
-    // 🔍 Find the object by ID
+    // Find the object by ID
     const object = await prisma.roomObject.findUnique({
       where: { id: data.objectId },
     });
@@ -15,12 +15,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Object not found" }, { status: 404 });
     }
 
-    // ✅ Check if answer is correct
+    // Check if answer is correct
     const isCorrect =
       data.answer.trim().toLowerCase() ===
       object.correctAnswer.trim().toLowerCase();
 
-    // 📝 Record attempt
+    //  Record attempt
     const attempt = await prisma.attempt.create({
       data: {
         sessionId: data.sessionId,
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // 🏆 Update score if answer is correct
+    // Update score if answer is correct
     if (isCorrect) {
       await prisma.gameSession.update({
         where: { id: data.sessionId },

@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// 🟢 POST create a new room
+// POST create a new room
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();

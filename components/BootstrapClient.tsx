@@ -10,13 +10,13 @@ export default function BootstrapClient() {
           // Import Bootstrap properly with types support
           const bootstrap = await import("bootstrap");
 
-          // ✅ Attach it to window for global access
+          //  Attach it to window for global access
           (window as any).bootstrap = bootstrap;
 
-          console.log("✅ Bootstrap fully loaded and attached to window");
+          console.log(" Bootstrap fully loaded and attached to window");
         }
       } catch (error) {
-        console.error("❌ Failed to load Bootstrap JavaScript:", error);
+        console.error(" Failed to load Bootstrap JavaScript:", error);
       }
     };
 

@@ -141,7 +141,7 @@ export default function PlayPage() {
         toast.innerHTML = `
           <div class="toast show" role="alert">
             <div class="toast-header bg-success text-white">
-              <strong class="me-auto">✅ Correct!</strong>
+              <strong class="me-auto"> Correct!</strong>
               <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
             </div>
             <div class="toast-body">
@@ -168,7 +168,7 @@ export default function PlayPage() {
         toast.innerHTML = `
           <div class="toast show" role="alert">
             <div class="toast-header bg-danger text-white">
-              <strong class="me-auto">❌ Incorrect</strong>
+              <strong class="me-auto"> Incorrect</strong>
               <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
             </div>
             <div class="toast-body">

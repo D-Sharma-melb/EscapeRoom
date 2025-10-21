@@ -42,7 +42,7 @@ export default function BuilderPage() {
     const checkBootstrap = () => {
       if (typeof window !== "undefined" && (window as any).bootstrap) {
         setBootstrapLoaded(true);
-        console.log("✅ Bootstrap detected and ready");
+        console.log(" Bootstrap detected and ready");
       } else {
         // Retry after a short delay
         setTimeout(checkBootstrap, 100);
@@ -93,12 +93,12 @@ export default function BuilderPage() {
   };
 
   const handleObjectClick = (obj: RoomObject) => {
-    console.log("🖱️ Object clicked:", obj.type, obj.id);
+    console.log("Object clicked:", obj.type, obj.id);
     setSelectedObject(obj);
     
     // Check if Bootstrap is loaded
     if (!bootstrapLoaded || !(window as any).bootstrap) {
-      console.error("❌ Bootstrap not loaded yet");
+      console.error(" Bootstrap not loaded yet");
       alert("Please wait a moment for the page to fully load, then try again.");
       return;
     }
@@ -116,13 +116,13 @@ export default function BuilderPage() {
             modal = new (window as any).bootstrap.Modal(modalElement);
           }
           modal.show();
-          console.log("✅ Modal shown successfully");
+          console.log(" Modal shown successfully");
         } catch (error) {
-          console.error("❌ Error showing modal:", error);
+          console.error(" Error showing modal:", error);
           alert("Error opening configuration modal. Please try clicking again.");
         }
       } else {
-        console.error("❌ Modal element not found in DOM");
+        console.error(" Modal element not found in DOM");
         alert("Modal element not found. Please refresh the page.");
       }
     }, 50);
@@ -141,13 +141,13 @@ export default function BuilderPage() {
     points: number;
   }) => {
     if (selectedObject) {
-      console.log("💾 Saving object config:", config);
+      console.log(" Saving object config:", config);
       setObjects(
         objects.map((obj) =>
           obj.id === selectedObject.id ? { ...obj, ...config } : obj
         )
       );
-      console.log("✅ Object configuration saved locally");
+      console.log(" Object configuration saved locally");
     }
   };
 
@@ -223,11 +223,11 @@ export default function BuilderPage() {
         }
         
         const savedObj = await response.json();
-        console.log(`  ✅ Saved object with ID: ${savedObj.id}`);
+        console.log(`   Saved object with ID: ${savedObj.id}`);
       }
 
-      console.log("🎉 All objects saved successfully!");
-      alert("Room saved successfully! ✅");
+      console.log("All objects saved successfully!");
+      alert("Room saved successfully! ");
     } catch (error) {
       console.error("Error saving room:", error);
       alert("Failed to save room. Please try again.");
@@ -251,7 +251,7 @@ export default function BuilderPage() {
     if (confirm("Are you sure you want to logout?")) {
       localStorage.removeItem("user");
       setUser(null);
-      console.log("👋 User logged out successfully");
+      console.log("User logged out successfully");
     }
   };
 

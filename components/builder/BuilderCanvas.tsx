@@ -82,7 +82,7 @@ export default function BuilderCanvas({
     if (!isDragging) {
       onObjectClick(obj);
     } else {
-      console.log("⚠️ Click ignored - was dragging");
+      console.log("Click ignored - was dragging");
     }
   };
 

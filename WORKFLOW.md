@@ -196,3 +196,4 @@ const handleSaveRoom = async () => {
 - `app/api/rooms/[id]/objects/route.ts` - API endpoints
 
 
+-- I have genereated this readme file using AI - Divyam 

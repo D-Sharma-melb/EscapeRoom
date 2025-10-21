@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-// 🟢 GET - Fetch all game sessions (with related player & room)
+// GET - Fetch all game sessions (with related player & room)
 export async function GET(req: NextRequest) {
   try {
     const sessions = await prisma.gameSession.findMany({
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// 🟢 POST - Create a new game session
+//  POST - Create a new game session
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// 🟡 PUT - Update a game session
+//  PUT - Update a game session
 export async function PUT(req: NextRequest) {
   try {
     const data = await req.json();
